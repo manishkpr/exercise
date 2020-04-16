@@ -2,5 +2,6 @@
     <string name="app_name">exercise</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_cancel">Cancel</string>
+    <string name="button_save">Save</string>
 
 </resources>

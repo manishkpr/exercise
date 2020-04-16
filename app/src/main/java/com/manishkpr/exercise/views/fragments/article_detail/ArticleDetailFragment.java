@@ -8,19 +8,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-
+import com.manishkpr.exercise.MainActivity;
 import com.manishkpr.exercise.R;
 
 import com.manishkpr.exercise.model.article.Article;
 import com.manishkpr.exercise.model.article.ArticleDetail;
 import com.manishkpr.exercise.util.AppConstants;
 import com.manishkpr.exercise.util.CircleTransformation;
+import com.manishkpr.exercise.util.FragmentStackManager;
 import com.manishkpr.exercise.views.base.BaseFragment;
 import com.manishkpr.exercise.views.fragments.article.ArticlePresenter;
 import com.orhanobut.logger.Logger;
@@ -34,17 +37,22 @@ import butterknife.ButterKnife;
 
 public class ArticleDetailFragment extends BaseFragment implements ArticleDetailMvpView {
 
-    @Inject ArticleDetailPresenter articleDetailPresenter;
-    @BindView(R.id.article_description)  TextView articleDescription;
-    @BindView(R.id.detail_layout)        LinearLayout detailLayout;
-    @BindView(R.id.article_image)        ImageView article_image;
-    @BindView(R.id.progressBar)          ProgressBar progressBar;
+    @Inject ArticleDetailPresenter          articleDetailPresenter;
+    @BindView(R.id.article_description)     TextView articleDescription;
+    @BindView(R.id.detail_layout)           LinearLayout detailLayout;
+    @BindView(R.id.article_image)           ImageView article_image;
+    @BindView(R.id.progressBar)             ProgressBar progressBar;
+    @BindView(R.id.action_edit_description) EditText actionEditDescription;
+    @BindView(R.id.action_save)             Button action_save;
+
 
     MenuItem actionEdit;
     MenuItem actionCancel;
 
     Article article;
     ArticleDetail articleDetail;
+
+    String articleDesc;
 
 
     @Override
@@ -64,6 +72,7 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         ButterKnife.bind(this, root);
         articleDetailPresenter.attachView(this);
         getRequest();
+        setUpActions();
     }
 
     void getRequest(){
@@ -82,10 +91,21 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
     @Override
     public void showArticle(ArticleDetail articleDetail) {
         this.articleDetail = articleDetail;
-        articleDescription.setText(articleDetail.text());
+        articleDesc = articleDetail.text();
+        articleDescription.setText(articleDesc);
         setAvatar();
         layoutProgress.setVisibility(View.GONE);
         detailLayout.setVisibility(View.VISIBLE);
+    }
+
+    void setUpActions() {
+        action_save.setOnClickListener( (View v) -> {
+            String newDesc =  actionEditDescription.getText().toString();
+            if(newDesc.length()!=0) {
+                articleDesc = newDesc;
+            }
+            menuToggle();
+        });
     }
 
     void setAvatar() {
@@ -124,9 +144,17 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         if(actionCancel.isVisible()){
             actionCancel.setVisible(false);
             actionEdit.setVisible(true);
+            articleDescription.setText(articleDesc);
+            detailLayout.setVisibility(View.VISIBLE);
+            actionEditDescription.setVisibility(View.GONE);
+            action_save.setVisibility(View.GONE);
         }else{
             actionCancel.setVisible(true);
             actionEdit.setVisible(false);
+            detailLayout.setVisibility(View.GONE);
+            action_save.setVisibility(View.VISIBLE);
+            actionEditDescription.setVisibility(View.VISIBLE);
+            actionEditDescription.setText(articleDesc);
         }
     }
 

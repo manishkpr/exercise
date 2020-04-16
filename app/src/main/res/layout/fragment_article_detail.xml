@@ -26,6 +26,21 @@
 
         </LinearLayout>
 
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/action_edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:visibility="gone"
+            android:text="@string/button_save"
+            android:layout_gravity="bottom"
+            android:id="@+id/action_save"
+            android:layout_margin="@dimen/layout_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <include android:id="@+id/layout_progress" layout="@layout/layout_progress" />
 
         <include android:id="@+id/layout_error" layout="@layout/layout_article_error"/>
