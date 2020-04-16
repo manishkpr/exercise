@@ -33,18 +33,6 @@ public class ArticleFragment extends BaseFragment implements ArticleMvpView {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    @BindView (R.id.layout_progress)
-    View layoutProgress;
-
-    @BindView (R.id.layout_error)
-    View layout_error;
-
-
-    @BindView (R.id.article_error_msg)
-    TextView article_error_msg;
-
-
-
     ArticleRecyclerViewAdapter articleRecyclerViewAdapter;
     List<Article> articleList;
 

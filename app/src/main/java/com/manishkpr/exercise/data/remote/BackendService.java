@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import com.manishkpr.exercise.BuildConfig;
 import com.manishkpr.exercise.model.article.Article;
+import com.manishkpr.exercise.model.article.ArticleDetail;
 import com.manishkpr.exercise.util.MyGsonTypeAdapterFactory;
 
 import java.util.List;
@@ -18,11 +19,15 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface BackendService {
 
     @GET("article")
     Observable<List<Article>> getArticles();
+
+    @GET("article/{id}")
+    Observable<ArticleDetail> getArticle(@Path("id") int id);
 
 
     /******** Helper class that sets up a new services *******/

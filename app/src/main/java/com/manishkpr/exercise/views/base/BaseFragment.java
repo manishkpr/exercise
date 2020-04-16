@@ -7,6 +7,7 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 
 import com.manishkpr.exercise.MainApplication;
+import com.manishkpr.exercise.R;
 import com.manishkpr.exercise.injection.component.ConfigPersistentComponent;
 
 import com.manishkpr.exercise.injection.component.DaggerConfigPersistentComponent;
@@ -15,7 +16,10 @@ import com.manishkpr.exercise.injection.module.FragmentModule;
 
 
 import android.os.Build;
+import android.view.View;
+import android.widget.TextView;
 
+import butterknife.BindView;
 
 
 /**
@@ -26,6 +30,17 @@ import android.os.Build;
 public class BaseFragment extends Fragment {
 
     private FragmentComponent fragmentComponent;
+
+    public @BindView(R.id.layout_progress)
+    View layoutProgress;
+
+    public @BindView (R.id.layout_error)
+    View layout_error;
+
+
+
+    public @BindView (R.id.article_error_msg)
+    TextView article_error_msg;
 
     public void onAttach(Context context) {
         super.onAttach(context);
