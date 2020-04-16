@@ -1,0 +1,128 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.manishkpr.exercise"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            buildConfigField "String", 'BASE_URL', "https://task.free.beeceptor.com/"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", 'BASE_URL', '"https://5e98744e5eabe7001681c11c.mockapi.io/"'
+            versionNameSuffix " Debug"
+            debuggable true
+        }
+
+    }
+
+    // ButterKnife requires Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    final APP_COMPAT = '1.0.2'
+    final CONSTRAINT_LAYOUT = '1.1.3'
+    final MATERIAL = '1.0.0'
+
+    final RETROFIT = '2.8.1'
+    final BUTTER_KNIFE = '10.2.1'
+    final LOGGER = '2.2.0'
+
+    final DAGGER = '2.5'
+    final OKHTTP = '4.4.0'
+    final OKHTTP_PICASSO = '1.1.0'
+
+    final JAVA_POET = '1.7.0'
+    final RX_JAVA = '2.1.0'
+    final PICASSO = '2.71828'
+
+    final AUTO_VALUE = '1.3'
+    final AUTO_VALUE_GSON = '0.4.2'
+    final AUTO_VALUE_PARCEL = '0.2.4-rc2'
+
+    final GSON = '2.8.5'
+    final GLASS_FISH = '10.0-b28'
+    final RECYCLER_VIEW = '1.1.0'
+
+    def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER"
+
+
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android
+    implementation "androidx.appcompat:appcompat:$APP_COMPAT"
+    implementation "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT"
+    implementation "com.google.android.material:material:$MATERIAL"
+    compileOnly "org.glassfish:javax.annotation:$GLASS_FISH"
+    implementation "androidx.recyclerview:recyclerview:$RECYCLER_VIEW"
+
+    // Google
+    implementation "com.google.code.gson:gson:$GSON"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT"
+
+
+    // RX JAVA 2
+    implementation "io.reactivex.rxjava2:rxandroid:$RX_JAVA"
+    implementation "io.reactivex.rxjava2:rxjava:$RX_JAVA"
+
+    // OkHttp3
+    implementation "com.squareup.okhttp3:okhttp:$OKHTTP"
+    implementation "com.squareup.okhttp3:logging-interceptor:$OKHTTP"
+    implementation "com.jakewharton.picasso:picasso2-okhttp3-downloader:$OKHTTP_PICASSO"
+
+    // Logger
+    implementation "com.orhanobut:logger:$LOGGER"
+
+    // Picasso
+    implementation "com.squareup.picasso:picasso:$PICASSO"
+
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$BUTTER_KNIFE"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE"
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$DAGGER"
+    annotationProcessor daggerCompiler
+
+    // AutoValue
+    compileOnly "com.jakewharton.auto.value:auto-value-annotations:$AUTO_VALUE"
+    compileOnly "com.ryanharter.auto.value:auto-value-gson:$AUTO_VALUE_GSON"
+    annotationProcessor "com.google.auto.value:auto-value:$AUTO_VALUE"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:$AUTO_VALUE_PARCEL"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$AUTO_VALUE_GSON"
+    annotationProcessor "com.squareup:javapoet:$JAVA_POET"
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    testAnnotationProcessor daggerCompiler
+    androidTestAnnotationProcessor daggerCompiler
+}
